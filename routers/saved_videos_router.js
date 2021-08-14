@@ -19,7 +19,7 @@ savedVideosRouter.param("userId",async(req,res,next,userId)=>{
       
   }
   catch(err){
-    res.json({success:false,message:"error in finding the user",error:err})
+    res.status(404).json({success:false,message:"error in finding the user",error:err})
 
   }
   
@@ -34,10 +34,10 @@ savedVideosRouter.route("/:userId/videosSaved")
   try{
       const {videosSaved} =await user.populate(populateOptions).execPopulate()
 
-      res.json({success:true,message:"saved videos extracted :)", videosSaved})
+      res.status(200).json({success:true,message:"saved videos extracted :)", videosSaved})
   }
   catch(err){
-    res.json({success:false,message:"error in extracting the saved videos",error:err.message})
+    res.status(500).json({success:false,message:"error in extracting the saved videos",error:err.message})
   }
 
 })
@@ -50,10 +50,10 @@ savedVideosRouter.route("/:userId/videosSaved")
 
   try{
     const {videosSaved}=await user.save()
-    res.json({success:true,message:"successfully posted the video into saved videos",videosSaved})
+    res.status(201).json({success:true,message:"successfully posted the video into saved videos",videosSaved})
   }
   catch(err){
-    res.json({success:false,message:"error in posting the video into saved videos",error:err.message})
+    res.status(500).json({success:false,message:"error in posting the video into saved videos",error:err.message})
   }
 
 })
@@ -69,10 +69,10 @@ savedVideosRouter.route("/:userId/videosSaved")
   try{
     const {videosSaved}=await user.save()
 
-    res.json({success:true,message:"successfully deleted the video from saved videos :)",videosSaved})
+    res.status(201).json({success:true,message:"successfully deleted the video from saved videos :)",videosSaved})
   }
   catch(err){
-    res.json({success:false,message:"error in deleting the video from saved videos",error:err.message})
+    res.status(500).json({success:false,message:"error in deleting the video from saved videos",error:err.message})
   }
 })
 

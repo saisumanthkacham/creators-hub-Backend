@@ -19,7 +19,7 @@ likedVideosRouter.param("userId",async(req,res,next,userId)=>{
       
   }
   catch(err){
-    res.json({success:false,message:"error in finding the user",error:err.message})
+    res.status(404).json({success:false,message:"error in finding the user",error:err.message})
   }
   
 })
@@ -33,10 +33,10 @@ likedVideosRouter.route("/:userId/videosLiked")
   try{
       const {videosLiked} =await user.populate(populateOptions).execPopulate()
 
-      res.json({success:true,message:"liked videos extracted :)", videosLiked})
+      res.status(200).json({success:true,message:"liked videos extracted :)", videosLiked})
   }
   catch(err){
-    res.json({success:false,message:"error in extracting the liked videos",error:err.message})
+    res.status(500).json({success:false,message:"error in extracting the liked videos",error:err.message})
   }
 
 })
@@ -49,10 +49,10 @@ likedVideosRouter.route("/:userId/videosLiked")
 
   try{
     const {videosLiked}=await user.save()
-    res.json({success:true,message:"successfully posted the video into liked videos",videosLiked})
+    res.status(201).json({success:true,message:"successfully posted the video into liked videos",videosLiked})
   }
   catch(err){
-    res.json({success:false,message:"error in posting the video into liked videos",error:err.message})
+    res.status(500).json({success:false,message:"error in posting the video into liked videos",error:err.message})
   }
 
 })
@@ -68,10 +68,10 @@ likedVideosRouter.route("/:userId/videosLiked")
   try{
     const {videosLiked}=await user.save()
 
-    res.json({success:true,message:"successfully deleted the video from liked videos :)",videosLiked})
+    res.status(201).json({success:true,message:"successfully deleted the video from liked videos :)",videosLiked})
   }
   catch(err){
-    res.json({success:false,message:"error in deleting the video from liked videos",error:err.message})
+    res.status(500).json({success:false,message:"error in deleting the video from liked videos",error:err.message})
   }
 })
 

@@ -17,7 +17,7 @@ userRouter.route("/")
       res.json({success:true,message:"users found :)", users:usersData})
   }
   catch(err){
-    res.json({success:false,message:"error in retrieving users data",error:err})
+    res.status(404).json({success:false,message:"error in retrieving users data",error:err})
   }
   
 })
@@ -41,10 +41,10 @@ userRouter.route("/")
 
   try{
    const newUserList =await new User(newUser).save()
-    res.json({success:true,message:"successfull in creating new user",newUserList})
+    res.status(201).json({success:true,message:"successfull in creating new user",newUserList})
   }
   catch(err){
-    res.json({success:false,message:"error in creating new user",error:err.message})
+    res.status(500).json({success:false,message:"error in creating new user",error:err.message})
   }
 
 })
@@ -58,10 +58,10 @@ userRouter.route("/:userId")
 
   try{
     const extractedUser=await User.findById(req.params.userId,filterValues)
-    res.json({success:true,message:"user found :)", user:extractedUser})
+    res.status(200).json({success:true,message:"user found :)", user:extractedUser})
   }
   catch(err){
-  res.json({success:false,message:"error in retrieving users data",error:err})
+  res.status(404).json({success:false,message:"error in retrieving users data",error:err})
   }
 })
 

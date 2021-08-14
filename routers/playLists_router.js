@@ -18,7 +18,7 @@ playListsRouter.param("userId",async(req,res,next,userId)=>{
       
   }
   catch(err){
-    res.json({success:false,message:"error in finding the user",error:err.message})
+    res.status(404).json({success:false,message:"error in finding the user",error:err.message})
   }
   
 })
@@ -32,10 +32,10 @@ playListsRouter.route("/:userId/playLists")
   try{
       const {playList} =await user
       const playListsNames= playList.map(item=>item.name)
-      res.json({success:true,message:"playlists are extracted :)", playListsNames})
+      res.status(200).json({success:true,message:"playlists are extracted :)", playListsNames})
   }
   catch(err){
-    res.json({success:false,message:"error in extracting the playLists",error:err.message})
+    res.status(500).json({success:false,message:"error in extracting the playLists",error:err.message})
   }
 
 })
@@ -53,10 +53,10 @@ playListsRouter.route("/:userId/playLists")
   try{
       const editedPlayList=user.playList.push(newPlayList)
       user.save()
-      res.json({success:true,message:"playlist created :)", editedPlayList})
+      res.status(201).json({success:true,message:"playlist created :)", editedPlayList})
   }
   catch(err){
-      res.json({success:false,message:"error in creating the playList",error:err.message})
+      res.status(500).json({success:false,message:"error in creating the playList",error:err.message})
   }
   
 })
@@ -71,11 +71,11 @@ try{
     const editedPlayList=user.playList.pull(extractedPlayList)
     user.save()
 
-     res.json({success:true,message:"playlist deleted :)", editedPlayList})
+     res.status(201).json({success:true,message:"playlist deleted :)", editedPlayList})
   }
  
  catch(err){
-   res.json({success:false,message:"error in deleting the playList",error:err.message})
+   res.status(500).json({success:false,message:"error in deleting the playList",error:err.message})
  }
 
 })

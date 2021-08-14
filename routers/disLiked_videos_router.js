@@ -19,7 +19,7 @@ disLikedVideosRouter.param("userId",async(req,res,next,userId)=>{
       
   }
   catch(err){
-    res.json({success:false,message:"error in finding the user",error:err.message})
+    res.status(404).json({success:false,message:"error in finding the user",error:err.message})
   }
   
 })
@@ -33,10 +33,10 @@ disLikedVideosRouter.route("/:userId/videosDisLiked")
   try{
       const {videosDisLiked} =await user.populate(populateOptions).execPopulate()
 
-      res.json({success:true,message:"disliked videos extracted :)", videosDisLiked})
+      res.status(200).json({success:true,message:"disliked videos extracted :)", videosDisLiked})
   }
   catch(err){
-    res.json({success:false,message:"error in extracting the disliked videos",error:err.message})
+    res.status(500).json({success:false,message:"error in extracting the disliked videos",error:err.message})
   }
 
 })  
@@ -50,10 +50,10 @@ disLikedVideosRouter.route("/:userId/videosDisLiked")
 
   try{
     const {videosDisLiked}=await user.save()
-    res.json({success:true,message:"successfully posted the video into disliked videos :)",videosDisLiked})
+    res.status(201).json({success:true,message:"successfully posted the video into disliked videos :)",videosDisLiked})
   }
   catch(err){
-    res.json({success:false,message:"error in posting the video into disliked videos",error:err.message})
+    res.status(500).json({success:false,message:"error in posting the video into disliked videos",error:err.message})
   }
 
 })
@@ -70,10 +70,10 @@ disLikedVideosRouter.route("/:userId/videosDisLiked")
     user.videosDisLiked.pull(extractedVideoObj)
 
     const {videosDisLiked}=await user.save()
-    res.json({success:true,message:"successfully deleted the video from disliked videos",videosDisLiked})
+    res.status(201).json({success:true,message:"successfully deleted the video from disliked videos",videosDisLiked})
   }
   catch(err){
-    res.json({success:false,message:"error in deleting the video from disliked videos",error:err.message})
+    res.status(500).json({success:false,message:"error in deleting the video from disliked videos",error:err.message})
   }
 })
 

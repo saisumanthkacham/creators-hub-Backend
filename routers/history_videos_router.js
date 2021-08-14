@@ -19,7 +19,7 @@ historyVideosRouter.param("userId",async(req,res,next,userId)=>{
       
   }
   catch(err){
-    res.json({success:false,message:"error in finding the user",error:err.message})
+    res.status(404).json({success:false,message:"error in finding the user",error:err.message})
 
   }
   
@@ -34,10 +34,10 @@ historyVideosRouter.route("/:userId/videosHistory")
   try{
       const {videosHistory} =await user.populate(populateOptions).execPopulate()
 
-      res.json({success:true,message:"history videos extracted :)", videosHistory})
+      res.status(200).json({success:true,message:"history videos extracted :)", videosHistory})
   }
   catch(err){
-    res.json({success:false,message:"error in extracting the history videos",error:err.message})
+    res.status(500).json({success:false,message:"error in extracting the history videos",error:err.message})
   }
 
 })
@@ -50,7 +50,7 @@ historyVideosRouter.route("/:userId/videosHistory")
 
   try{
     const {videosHistory}=await user.save()
-    res.json({success:true,message:"successfully posted the video in history",videosHistory})
+    res.status(201).json({success:true,message:"successfully posted the video in history",videosHistory})
   }
   catch(err){
     res.json({success:false,message:"error in posting the video into history",error:err.message})
@@ -69,10 +69,10 @@ historyVideosRouter.route("/:userId/videosHistory")
   try{
     const {videosHistory}=await user.save()
 
-    res.json({success:true,message:"successfully deleted the video from history :)",videosHistory})
+    res.status(201).json({success:true,message:"successfully deleted the video from history :)",videosHistory})
   }
   catch(err){
-    res.json({success:false,message:"error in deleting the video from history",error:err.message})
+    res.status(500).json({success:false,message:"error in deleting the video from history",error:err.message})
   }
 })
 

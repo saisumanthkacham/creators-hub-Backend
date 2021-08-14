@@ -19,7 +19,7 @@ playListVideosRouter.param("userId",async(req,res,next,userId)=>{
       
   }
   catch(err){
-    res.json({success:false,message:"error in finding the user",error:err})
+    res.status(404).json({success:false,message:"error in finding the user",error:err})
 
   }
   
@@ -38,10 +38,10 @@ playListVideosRouter.route("/:userId/playLists/:playListName")
   
       const {videos}= playList.find(item=>item.name===playListName)
 
-      res.json({success:true,message:`${playListName} videos extracted :)`, playListVideos:videos })
+      res.status(200).json({success:true,message:`${playListName} videos extracted :)`, playListVideos:videos })
   }
   catch(err){
-    res.json({success:false,message:"error in extracting the saved videos",error:err.message})
+    res.status(500).json({success:false,message:"error in extracting the saved videos",error:err.message})
   }
 
 })
@@ -60,11 +60,11 @@ playListVideosRouter.route("/:userId/playLists/:playListName")
     .videos.push(videoObjToBePushed)
 
     const {playList}=await user.save()
-    res.json({success:true,message:`successfully posted the video into ${playListName}`,playList})
+    res.status(201).json({success:true,message:`successfully posted the video into ${playListName}`,playList})
   }
 
   catch(err){
-    res.json({success:false,message:`error in posting the video into ${playListName}`,error:err.message})
+    res.status(500).json({success:false,message:`error in posting the video into ${playListName}`,error:err.message})
   }
 
 })
@@ -83,11 +83,11 @@ playListVideosRouter.route("/:userId/playLists/:playListName")
 
     const resp=await user.save()
     
-    res.json({success:true,message:"successfully deleted the video from liked videos :)",remainingPlayList})
+    res.status(201).json({success:true,message:"successfully deleted the video from liked videos :)",remainingPlayList})
   }
-  
+
   catch(err){
-    res.json({success:false,message:"error in deleting the video from liked videos",error:err.message})
+    res.status(500).json({success:false,message:"error in deleting the video from liked videos",error:err.message})
   }
 })
 
