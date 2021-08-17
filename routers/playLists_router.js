@@ -3,9 +3,9 @@ const mongoose= require("mongoose")
 const playListsRouter= express.Router()
 const {User}= require("../models/user_model.js")
 
-const populateOptions={
-  path:"playList.name"
-}
+// const populateOptions={
+//   path:"playList.name"
+// }
 
 
 // middleware to extraxt user using userId from userCollection and inserting the extracted user into req header

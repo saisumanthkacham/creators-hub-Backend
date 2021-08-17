@@ -21,6 +21,8 @@ const {historyVideosRouter}= require("./routers/history_videos_router.js")
 const {disLikedVideosRouter}= require("./routers/disLiked_videos_router.js")
 const {playListsRouter}= require("./routers/playLists_router.js")
 const {playListVideosRouter}= require("./routers/playList_videos_router.js")
+const {intialUserDataRouter}= require("./routers/intial_user_data_router.js")
+const {authRouter}= require("./routers/auth_router.js")
 
 
 
@@ -48,5 +50,7 @@ app.use("/users",historyVideosRouter)
 app.use("/users",disLikedVideosRouter)
 app.use("/users",playListsRouter)
 app.use("/users",playListVideosRouter)
+app.use("/users",intialUserDataRouter)
+app.use("/users",authRouter)
 app.use("*",pageNotFound)
 

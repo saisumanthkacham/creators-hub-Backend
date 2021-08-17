@@ -38,7 +38,7 @@ playListVideosRouter.route("/:userId/playLists/:playListName")
   
       const {videos}= playList.find(item=>item.name===playListName)
 
-      res.status(200).json({success:true,message:`${playListName} videos extracted :)`, playListVideos:videos })
+      res.status(200).json({success:true,message:`${playListName} videos extracted :)`, videos })
   }
   catch(err){
     res.status(500).json({success:false,message:"error in extracting the saved videos",error:err.message})

@@ -4,16 +4,14 @@ const userRouter= express.Router()
 const {User}= require("../models/user_model.js")
 
 
-const filterValues={
-  __v:0
-}
+const selectValues="_id userName emailId videosLiked videosSaved videosHistory videosDisLiked playList"
 
 userRouter.route("/")
 // retrieving all usersData
 .get(async(req,res)=>{
 
   try{
-      const usersData=await User.find({},filterValues)
+      const usersData=await User.find({},selectValues)
       res.json({success:true,message:"users found :)", users:usersData})
   }
   catch(err){
@@ -22,42 +20,14 @@ userRouter.route("/")
   
 })
 
-// signup
-.post(async(req,res)=>{
-  const {name,pass,email}=req.body
-
-  const newUser={
-    _id:mongoose.Types.ObjectId(),
-    userName:name,
-    emailId:email,
-    password:pass,
-    videosLiked:[],
-    videosSaved:[],
-    videosHistory:[],
-    videosDisLiked:[],
-    playList:[]
-  }
-
-
-  try{
-   const newUserList =await new User(newUser).save()
-    res.status(201).json({success:true,message:"successfull in creating new user",newUserList})
-  }
-  catch(err){
-    res.status(500).json({success:false,message:"error in creating new user",error:err.message})
-  }
-
-})
-
-
 
 
 userRouter.route("/:userId")
 // retrieving specific user data
 .get(async(req,res)=>{
-
+  const userId= req.params.userId
   try{
-    const extractedUser=await User.findById(req.params.userId,filterValues)
+    const extractedUser=await User.findById(userId,selectValues)
     res.status(200).json({success:true,message:"user found :)", user:extractedUser})
   }
   catch(err){

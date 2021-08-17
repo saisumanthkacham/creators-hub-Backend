@@ -15,7 +15,7 @@ videoRouter.route("/")
 .get(async(req,res)=>{
   try{
     const videosData= await Video.find({},excludeKeys)
-    res.status(200).json({sucess:true,message:"sucessfully fetched video data",data:videosData})
+    res.status(200).json({sucess:true,message:"sucessfully fetched video data",videosData})
   }
   catch(err){
     res.status(500).json({success:false,message:"error in obtaining video data from db",error:err})
