@@ -3,9 +3,9 @@ const mongoose= require("mongoose")
 const playListsRouter= express.Router()
 const {User}= require("../models/user_model.js")
 
-// const populateOptions={
-//   path:"playList.name"
-// }
+const populateOptions={
+  path:"playList.videos.videoId"
+}
 
 
 // middleware to extraxt user using userId from userCollection and inserting the extracted user into req header
@@ -30,9 +30,11 @@ playListsRouter.route("/:userId/playLists")
 .get(async(req,res)=>{
   const user= req.user
   try{
-      const {playList} =await user
-      const playListsNames= playList.map(item=>item.name)
-      res.status(200).json({success:true,message:"playlists are extracted :)", playListsNames})
+      const {playList} =await user.populate(populateOptions).execPopulate()
+  
+      const playLists= playList.map(item=>{return {name:item.name,videos:item.videos.map(vid=>vid.videoId)}})
+
+      res.status(200).json({success:true,message:"playlists are extracted :)", playLists})
   }
   catch(err){
     res.status(500).json({success:false,message:"error in extracting the playLists",error:err.message})

@@ -29,23 +29,6 @@ playListVideosRouter.param("userId",async(req,res,next,userId)=>{
 
 playListVideosRouter.route("/:userId/playLists/:playListName")
 
-.get(async(req,res)=>{
-  const user= req.user
-  const playListName=req.params.playListName
-  
-  try{
-      const {playList} =await user.populate(populateOptions).execPopulate()
-  
-      const {videos}= playList.find(item=>item.name===playListName)
-
-      res.status(200).json({success:true,message:`${playListName} videos extracted :)`, videos })
-  }
-  catch(err){
-    res.status(500).json({success:false,message:"error in extracting the saved videos",error:err.message})
-  }
-
-})
-
 .post( async(req,res)=>{
   const user= req.user
   const playListName=req.params.playListName
@@ -91,5 +74,21 @@ playListVideosRouter.route("/:userId/playLists/:playListName")
   }
 })
 
+// .get(async(req,res)=>{
+//   const user= req.user
+//   const playListName=req.params.playListName
+  
+//   try{
+//       const {playList} =await user.populate(populateOptions).execPopulate()
+  
+//       const {videos}= playList.find(item=>item.name===playListName)
+
+//       res.status(200).json({success:true,message:`${playListName} videos extracted :)`, videos })
+//   }
+//   catch(err){
+//     res.status(500).json({success:false,message:"error in extracting the saved videos",error:err.message})
+//   }
+
+// })
 
 module.exports={playListVideosRouter}

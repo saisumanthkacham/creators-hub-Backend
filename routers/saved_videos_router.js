@@ -34,7 +34,9 @@ savedVideosRouter.route("/:userId/videosSaved")
   try{
       const {videosSaved} =await user.populate(populateOptions).execPopulate()
 
-      res.status(200).json({success:true,message:"saved videos extracted :)", videosSaved})
+      const vidsSaved= videosSaved.map(item=>item.videoId)
+
+      res.status(200).json({success:true,message:"saved videos extracted :)",vidsSaved})
   }
   catch(err){
     res.status(500).json({success:false,message:"error in extracting the saved videos",error:err.message})

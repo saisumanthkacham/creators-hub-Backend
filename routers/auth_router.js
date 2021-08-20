@@ -47,20 +47,25 @@ authRouter.route("/auth/login")
 .post(async(req,res)=>{
     const {name,pass}=req.body
 
-    try{
+   
 
-      const {password,_id}= await User.findOne({userName:name})
-      if(await bcrypt.compare(pass,password)){
-        console.log(_id)
-        res.status(200).json({success:true,message:"login successfull",_id})
+      try{
+
+          const {password,_id}= await User.findOne({userName:name})
+          if(await bcrypt.compare(pass,password)){
+          console.log(_id)
+          res.status(200).json({success:true,message:"login successfull",_id})
+          }
+          else{
+          console.log("wrong credentials")
+          }
       }
-      else{
-        console.log("wrong credentials")
-      }
-    }
-    catch(err){
-      res.status(500).json({success:false,message:"error while logging in ",error:err.message})
-    }
+
+      catch(err){
+          res.status(500).json({success:false,message:"error while logging in ",error:err.message})
+        }
+    
+    
     
 })
 

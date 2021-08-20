@@ -34,7 +34,9 @@ historyVideosRouter.route("/:userId/videosHistory")
   try{
       const {videosHistory} =await user.populate(populateOptions).execPopulate()
 
-      res.status(200).json({success:true,message:"history videos extracted :)", videosHistory})
+      const vidsHistory= videosHistory.map(item=>item.videoId)
+
+      res.status(200).json({success:true,message:"history videos extracted :)", vidsHistory})
   }
   catch(err){
     res.status(500).json({success:false,message:"error in extracting the history videos",error:err.message})

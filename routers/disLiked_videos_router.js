@@ -46,10 +46,19 @@ disLikedVideosRouter.route("/:userId/videosDisLiked")
   const user= req.user
   const {id}= req.body
 
-   user.videosDisLiked.push({_id:mongoose.Types.ObjectId(),videoId:id})
-
   try{
+     // adding video to DisLiked Videos
+     user.videosDisLiked.push({_id:mongoose.Types.ObjectId(),videoId:id})
+
+     // finding same video if it exists in Liked Videos
+    const extractedLikedVid= await user.videosLiked.find(item=>item.videoId==id)  
+
+    // removing the video from Liked Videos if exists
+    user.videosLiked.pull(extractedLikedVid&&extractedLikedVid)
+
+    // saving user model to DB after all modifications
     const {videosDisLiked}=await user.save()
+
     res.status(201).json({success:true,message:"successfully posted the video into disliked videos :)",videosDisLiked})
   }
   catch(err){

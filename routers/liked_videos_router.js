@@ -32,8 +32,9 @@ likedVideosRouter.route("/:userId/videosLiked")
   const user= req.user
   try{
       const {videosLiked} =await user.populate(populateOptions).execPopulate()
+      const vidsLiked= videosLiked.map(item=>item.videoId)
 
-      res.status(200).json({success:true,message:"liked videos extracted :)", videosLiked})
+      res.status(200).json({success:true,message:"liked videos extracted :)", vidsLiked})
   }
   catch(err){
     res.status(500).json({success:false,message:"error in extracting the liked videos",error:err.message})
@@ -45,9 +46,17 @@ likedVideosRouter.route("/:userId/videosLiked")
   const user= req.user
   const {id}= req.body
 
-   user.videosLiked.push({_id:mongoose.Types.ObjectId(),videoId:id})
-
   try{
+    // adding video To Liked Videos
+    user.videosLiked.push({_id:mongoose.Types.ObjectId(),videoId:id})
+
+    // finding same video if it exists in DisLiked Videos
+    const extractedDisLikedVid= await user.videosDisLiked.find(item=>item.videoId==id)  
+
+    // removing the video from DisLiked Videos if exists
+    user.videosDisLiked.pull(extractedDisLikedVid&&extractedDisLikedVid)
+
+    // saving user to DB
     const {videosLiked}=await user.save()
     res.status(201).json({success:true,message:"successfully posted the video into liked videos",videosLiked})
   }

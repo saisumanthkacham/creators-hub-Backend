@@ -7,7 +7,7 @@ const populateOptions={
   liked:{path:"videosLiked.videoId"},
   disLiked:{path:"videosDisLiked.videoId"},
   history:{path:"videosHistory.videoId"},
-  playLists:{path:"playList.name"},
+  playLists:{path:"playList.videos.videoId"},
   saved:{path:"videosSaved.videoId"},
 }
 
@@ -34,21 +34,27 @@ intialUserDataRouter.route("/:userId/intialUserData")
 
 .get(async(req,res)=>{
   const user= req.user
+  const name= user.userName 
   try{
       const {videosLiked} =await user.populate(populateOptions.liked).execPopulate()
+       const vidsLiked= videosLiked.map(item=>item.videoId)
 
       const {videosDisLiked} =await user.populate(populateOptions.disLiked).execPopulate()
+       const vidsDisLiked= videosDisLiked.map(item=>item.videoId)
 
       const {videosHistory} =await user.populate(populateOptions.history).execPopulate()
+      const vidsHistory= videosHistory.map(item=>item.videoId)
         
       const {videosSaved} =await user.populate(populateOptions.saved).execPopulate()
+      const vidsSaved= videosSaved.map(item=>item.videoId)
   
-      const {playList} =await user
-      const playListsNames= playList.map(item=>item.name)
+      const {playList} =await user.populate(populateOptions.playLists).execPopulate()
+  
+
+      const playLists= playList.map(item=>{return {name:item.name,videos:item.videos.map(vid=>vid.videoId)}})
 
 
-
-      res.status(200).json({success:true,message:"intial user data extracted :)", videosLiked,videosDisLiked,videosHistory,videosSaved,playListsNames})
+      res.status(200).json({success:true,message:"intial user data extracted :)", vidsLiked,vidsDisLiked,vidsHistory,vidsSaved,playLists,name})
   }
   catch(err){
     res.status(500).json({success:false,message:"error in extracting the intial data",error:err.message})
