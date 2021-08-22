@@ -34,7 +34,7 @@ intialUserDataRouter.route("/:userId/intialUserData")
 
 .get(async(req,res)=>{
   const user= req.user
-  const name= user.userName 
+  const name= user&&user.userName 
   try{
       const {videosLiked} =await user.populate(populateOptions.liked).execPopulate()
        const vidsLiked= videosLiked.map(item=>item.videoId)

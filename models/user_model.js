@@ -10,7 +10,7 @@ require("mongoose-type-url")
 const UserSchema= new Schema({
 
   userId:Schema.Types.ObjectId,
-  userName:{type:String,unique:[true,"username should be unique :("],},
+  userName:{type:String,unique:[true,"username should be unique :("],sparse:true},
   emailId:{
     type:mongoose.SchemaTypes.Email,
     unique:[true,"emailId should be unique :("],
@@ -23,7 +23,6 @@ const UserSchema= new Schema({
       videoId:{
           type:Schema.Types.ObjectId,
           ref:"Video",
-          unique:true
         }
       }
     ],
@@ -33,7 +32,6 @@ const UserSchema= new Schema({
       videoId:{
           type:Schema.Types.ObjectId,
           ref:"Video",
-          unique:true
         }
       }
   ],
@@ -43,7 +41,6 @@ const UserSchema= new Schema({
       videoId:{
           type:Schema.Types.ObjectId,
           ref:"Video",
-          unique:true
         }
       }
   ],
@@ -53,16 +50,17 @@ videosHistory:[
       videoId:{
           type:Schema.Types.ObjectId,
           ref:"Video",
-          unique:true
+          unique:true,
+          sparse:true
         }
   }
   ],
 
   playList:[
-      {name:{type:String,unique:[true,"playList name should be unique"]},
+      {name:{type:String,unique:[true,"playList name should be unique"],sparse:true},
       videos:[
         { 
-          videoId:{type:Schema.Types.ObjectId ,ref:"Video",unique:true}
+          videoId:{type:Schema.Types.ObjectId ,ref:"Video", unique:true,sparse:true}
         },
         ]
       }

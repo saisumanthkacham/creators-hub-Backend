@@ -14,22 +14,22 @@
     },
 
     {
-      vName:"This could be the future of remote offices. I'm serious.",
+      vName:"How to FOCUS for 16 hours a day!",
       creator:"Varun Mayya",
       platform:"Instagram",
       profileUrl:"https://yt3.ggpht.com/ytc/AAUvwnhLAJt4W8-G0thddnopHbvmKOpTD6lbV2pZDEi7ng=s176-c-k-c0x00ffffff-no-rj-mo",
-      url:"https://www.youtube.com/watch?v=WjhVspM4OlU",
-      thumbnail:"https://img.youtube.com/vi/WjhVspM4OlU/maxresdefault.jpg" , 
+      url:"https://www.youtube.com/watch?v=EePH5kYNmvc",
+      thumbnail:"https://img.youtube.com/vi/EePH5kYNmvc/maxresdefault.jpg" , 
       
       },
   
     {
-      vName:"Why do investors invest in money losing companies like Cred?",
+      vName:"How To Go From Broke To Successful Startup GUIDE",
       creator:"Varun Mayya",
       platform:"Instagram",
       profileUrl:"https://yt3.ggpht.com/ytc/AAUvwnhLAJt4W8-G0thddnopHbvmKOpTD6lbV2pZDEi7ng=s176-c-k-c0x00ffffff-no-rj-mo",
-      url:"https://www.youtube.com/watch?v=lRlnDZ9zEpg",
-      thumbnail:"https://img.youtube.com/vi/lRlnDZ9zEpg/maxresdefault.jpg" ,
+      url:"https://www.youtube.com/watch?v=gj3bqiTRF2A",
+      thumbnail:"https://img.youtube.com/vi/gj3bqiTRF2A/maxresdefault.jpg" ,
       
     },
   
@@ -463,36 +463,7 @@
         ],
     },
 
-    { 
-      userName:"sai",
-      emailId:"sai@gmail.com",
-      password: "sai",
-
-       videosLiked:[
-         {videoId:"6113c51abf1597039aab305b"},{videoId:"6113c51abf1597039aab305c"}
-         ],
-
-        videosSaved:[
-         {videoId:"6113c51abf1597039aab305b"},{videoId:"6113c51abf1597039aab305c"}
-         ],
-
-         videosHistory:[
-         {videoId:"6113c51abf1597039aab305b"},{videoId:"6113c51abf1597039aab305c"}
-         ],
-
-         videosDisLiked:[
-         {videoId:"6113c51abf1597039aab305b"},{videoId:"6113c51abf1597039aab305c"}
-         ],
-
-         playList:[ 
-          {name:"playlist1",
-            videos:[
-             {videoId:"6113c51abf1597039aab305c"}
-            ]
-          }
-          ],
-    
-    }
+   
 
   ]
 

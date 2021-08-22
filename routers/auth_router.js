@@ -10,7 +10,6 @@ const bcrypt= require("bcrypt")
 authRouter.route("/auth/signUp")
 .post(async (req,res)=>{
   const {pass,name,email}=req.body
-  console.log("email",email)
 
  try{
     // hashing password
@@ -30,13 +29,17 @@ authRouter.route("/auth/signUp")
       playList:[]}
     const savedResponse=await new User(newUser).save()
 
+    console.log("sign in resp",savedResponse)
+
     // extracting the newly created userId from db
     const {_id}=await User.findOne({userName:name})
 
     savedResponse&&res.status(201).json({success:true,message:`successfull in creating new user "${name}" `,_id})
   }
 catch(err){
-  res.status(500).json({success:false,message:"error while creating new user ",error:err.message})}
+  res.status(500).json({success:false,message:"error while creating new user ",error:err.message})
+  console.log("error from signup",err)
+  }
  
 })
 
@@ -47,8 +50,7 @@ authRouter.route("/auth/login")
 .post(async(req,res)=>{
     const {name,pass}=req.body
 
-   
-
+  
       try{
 
           const {password,_id}= await User.findOne({userName:name})
@@ -64,8 +66,6 @@ authRouter.route("/auth/login")
       catch(err){
           res.status(500).json({success:false,message:"error while logging in ",error:err.message})
         }
-    
-    
     
 })
 
